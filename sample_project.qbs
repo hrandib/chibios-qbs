@@ -45,7 +45,8 @@ Project {
 
             cpp.defines: [
                 MCU,
-                "CH_CUSTOMER_LIC_PORT_CM4=TRUE"
+                "CH_CUSTOMER_LIC_PORT_CM4=TRUE",
+                "CORTEX_USE_FPU"
             ]
 
             cpp.linkerFlags: [
@@ -55,11 +56,8 @@ Project {
             ]
 
             cpp.positionIndependentCode: false
-            cpp.debugInformation: true
-            cpp.generateLinkerMapFile: true
             cpp.enableExceptions: false
             cpp.enableRtti: false
-            cpp.optimization: "small"
 
             Group {
                 name: "Config"
@@ -69,6 +67,19 @@ Project {
                     "mcuconf.h",
                     "chconf.h"
                 ]
+            }
+
+            Properties {
+                condition: qbs.buildVariant === "release"
+                cpp.debugInformation: false
+                cpp.optimization: "small"
+            }
+
+            Properties {
+                condition: qbs.buildVariant !== "release"
+                cpp.debugInformation: true
+                cpp.generateLinkerMapFile: true
+                cpp.optimization: "none"
             }
         }
     }
@@ -82,6 +93,7 @@ Project {
         Depends { name: "config" }
 
         consoleApplication: false
+        cpp.executableSuffix: ".elf"
 
         Group {
             name: "Compiled object file"

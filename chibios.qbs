@@ -179,6 +179,9 @@ Project {
         Depends { name: 'config' }
         Depends { name: 'license' }
 
+        //required for tickless mode
+        readonly property string halOsalPath: FileInfo.joinPaths(project.CH_PATH, "os/hal/osal/rt-nil/")
+
         readonly property string commonPath: FileInfo.joinPaths(project.CH_PATH, "os/common/")
         readonly property string LD_SCRIPTS_PATH: FileInfo.joinPaths(commonPath, "startup/ARMCMx/compilers/GCC/ld/")
         readonly property string ARCH: {
@@ -208,6 +211,7 @@ Project {
             "ports/ARM-common",
             "ports/" + ARCH,
         ].map(function(path){ return FileInfo.joinPaths(commonPath, path) })
+         .concat([halOsalPath])
 
         Export {
             Depends { name: "cpp" }
