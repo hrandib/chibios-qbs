@@ -93,6 +93,7 @@ Project {
             "ports/STM32/LLD/USART",
             "osal/rt-nil",
             "lib/streams",
+            "lib/complex/mfs",
         ].map(function(path){ return FileInfo.joinPaths(halPath, path) })
         .concat(lldPaths)
 
@@ -109,6 +110,15 @@ Project {
             files: [
                 "*.h",
                 "*.c"
+            ]
+        }
+
+        Group {
+            name: "complex"
+            prefix: halPath + "lib/complex/"
+            files: [
+                "mfs/*.h",
+                "mfs/*.c"
             ]
         }
 
