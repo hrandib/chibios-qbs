@@ -148,7 +148,7 @@ Project {
 
         Group {
             name: "port"
-            prefix: FileInfo.joinPaths(halPath, "ports/STM32", project.MCU_FAMILY, "/")
+            prefix: FileInfo.joinPaths(portPath, project.MCU_FAMILY, "/")
             files: [
                 "*.h",
                 "hal*.c",
